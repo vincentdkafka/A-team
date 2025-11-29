@@ -1,121 +1,146 @@
+🌿 Arogya-AI — AI-powered Ayurvedic Insight System
 
-# Ayurvedic AI Platform – Hackathon Edition
+Arogya-AI blends modern medical data with Ayurveda, Yogic science, and astrology to help users understand their mind–body health and assist Ayurvedacharyas in delivering faster, more accurate consultations.
 
-An end-to-end prototype that blends Ayurveda, astrology-derived insights, and AI guidance. It includes a compact dashboard, an astrology onboarding flow, a landing page with human-centric insights, and an AI chat with report upload that integrates n8n webhooks.
+This project was built for an Agentic AI Hackathon and showcases a four-agent architecture designed to make preventive healthcare personalized, actionable, and easy to understand.
 
-## Quick Start
+---
 
-1. `npm i`
-2. `npm run dev`
-3. Open `http://localhost:3000/`
-4. Use Dev Navigation (top-right) to jump to:
-   - 🔐 Login
-   - 🌿 Ayurveda Dashboard
-   - ✨ Astro Onboarding
-   - ✨ Astro Insights
-   - 💬 AI Chat
 
-## Screens & Flow
+##  Core User Problems
 
-- Login → fetches health data from `http://localhost:5678/webhook-test/health` and opens Ayurveda Dashboard
-- Astro Onboarding → posts to `http://localhost:5678/webhook-test/astro`, stores `astro-insights`, routes to Astro Insights
-- Astro Insights → greets and displays current state, dosha distribution, human interpretation
-- AI Chat → supports normal chat plus “Upload Report”, which posts file to `http://localhost:5678/webhook-test/report` and updates the dashboard data
+### 1. Lack of Self-Understanding  
+Most people don’t know their:
+- dosha (body type)  
+- agni (digestive/metabolic strength)  
+- ama (toxicity/load)  
+- emotional tendencies  
+- natural constitution (swabhav)
 
-## Features
+They feel lost about how these influence digestion, energy, mood, and daily performance.
 
-- Ayurveda Dashboard with compact charts:
-  - Digestive Strength radial gauge
-  - Dosha Balance pie + legend
-  - Energy Curve line chart
-  - Detailed diet guidance (prefer/avoid qualities, recommended foods)
-  - Seasonal/location/work-nature insights
-- Astrology-driven Onboarding and Insights
-- AI Chat with report upload and data refresh
-- n8n flows for health, report, and astrology integration
+### 2. No Daily Actionable Guidance  
+Even if they know their dosha, they don’t know:
+- what to eat today  
+- what lifestyle to follow in the current season (ritu)  
+- how to adjust based on sleep, stress, or weather  
+- how to apply holistic advice in a busy urban life  
 
-## Project Structure
+### 3. Scattered & Conflicting Information  
+Advice from family, YouTube, Instagram, or home remedies is overwhelming and contradictory.  
+Nothing is personalized, structured, or medically aligned. 
 
-- `src/App.tsx` – screen router and Dev Navigation
-- `src/components/Login.tsx` – login + health webhook
-- `src/components/AyurvedaDashboard.tsx` – main dashboard
-- `src/components/AstroOnboarding.tsx` – astrology onboarding form
-- `src/components/AstroInsights.tsx` – astrology landing page
-- `src/components/ChatInterface.tsx` – AI chat + report upload
-- `docs/n8n/*.json` – importable n8n flows
-- `docs/screenshots/` – add your screenshots here
+---
 
-## n8n Integration
+## 🎯 Our Core Goal
 
-Import the JSON flows from `docs/n8n` into your n8n instance.
+Make Ayurvedic preventive healthcare:
+- Easy to understand  
+- Personalized  
+- Actionable  
+- Doctor-friendly  
 
-- Health: GET `/webhook-test/health` → returns JSON for the dashboard (`localStorage['ayurveda-dashboard']`)
-- Report: POST `/webhook-test/report` → accepts `report_file`, returns combined insights
-- Astro: POST `/webhook-test/astro` → accepts onboarding payload, returns `astro-insights`
+This increases user clarity while improving the efficiency and accuracy of Ayurvedic consultations.
 
-## Diagrams
+---
 
-```mermaid
-flowchart LR
-subgraph Client
-Login --> AyurvedaDashboard
-AstroOnboarding --> AstroInsights
-AstroInsights --> ChatInterface
-ChatInterface -->|Upload Report| n8nReport
-Login -->|Fetch Health| n8nHealth
-AstroOnboarding -->|Submit Astro| n8nAstro
-end
+## 🧑‍🤝‍🧑 Target Users
 
-subgraph n8n
-n8nHealth[Webhook /health] --> FunctionHealth --> RespondHealth
-n8nReport[Webhook /report] --> FunctionReport --> RespondReport
-n8nAstro[Webhook /astro] --> FunctionAstro --> RespondAstro
-end
+- Working professionals (28–45)  
+- Long-term allopathy users who want holistic, side-effect-free guidance  
 
-FunctionHealth -->|JSON| AyurvedaDashboard
-FunctionAstro -->|JSON| AstroInsights
-FunctionReport -->|JSON| AyurvedaDashboard
-```
+---
 
-## API Contracts
+## ⚙️ Core Agentic Engines
 
-### Health JSON
+Arogya-AI is powered by four specialized AI agents that work together to create a unified, personalized Ayurvedic insight system. Each agent handles a distinct intelligence layer—medical, dietary, astrological, and Ayurvedic—resulting in a complete mind–body assessment for users and a clarity-boosting dashboard for Ayurvedacharyas.
 
-Top-level keys like `snapshot`, `doshaProfile`, `metabolicDigestive`, `foodCompatibility` (with `prefer_qualities`, `avoid_qualities`, `recommended_foods`, etc.), and `extras` (`balanceMeter`, `climateEffectScore`, `foodScore`, `energyCurve`).
+---
 
-### Report JSON
+###  1. This agent extracts, interprets, and summarizes modern medical data from user-uploaded reports.
 
-Same shape as Health JSON; merges uploaded report-derived fields into dashboard-ready output.
+**Capabilities**
+- Parses PDFs/images to identify biomarkers, symptoms, and risk indicators  
+- Generates structured health summaries for doctors  
+- Maps medical markers to Ayurvedic concepts (agni, ama, dosha aggravation)  
+- Flags red-zones requiring immediate medical attention  
 
-### Astro JSON
+This acts as the bridge between allopathy diagnostics and Ayurvedic interpretation.
 
-Keys like `greeting`, `personaTitle`, `characterSummary`, `currentState`, `doshaDistribution`, `interpretation`, `natureInsights` used by Astro Insights.
 
-## Screenshots
+---
 
-Place screenshots under `docs/screenshots/` and reference them here in Markdown.
+###  2. Diet Intelligence Engine  
+This agent turns Ayurvedic principles into real-world, actionable diet plans.
 
-## Deployment & Git Upload
+**Capabilities**
+- Creates daily and seasonal meal recommendations  
+- Considers dosha, agni, weather, and stress levels  
+- Adds triage suggestions: home remedies vs. herbal therapy vs. medical escalation  
+- Avoids conflicting foods (viruddha ahara) and optimizes digestion  
 
-Initialize repository and push to GitHub:
+Users receive practical food guidance, not vague generic tips.
 
-```bash
-git init
-git add .
-git commit -m "Hackathon: Ayurveda + Astrology + AI Platform"
-git branch -M main
-git remote add origin https://github.com/vincentdkafka/A-team.git
-git push -u origin main
-```
+---
 
-If using a token, set the remote as:
+###  3. Astrology Rhythm Agent  
+A modern, non-superstitious approach to astrological timing for holistic health.
 
-```bash
-git remote set-url origin https://<TOKEN>@github.com/vincentdkafka/A-team.git
-```
+**Capabilities**
+- Tracks lunar days (tithi), planetary positions, emotional cycles  
+- Maps astrological rhythm with circadian rhythm and Ayurvedic routine  
+- Suggests best times for meditation, cleansing, heavy work, or rest  
+- Predicts mental clarity cycles and mood fluctuations  
 
-## Hackathon Notes
+This agent operationalizes astrology as a practical health-timing system.
 
-- Keep flows simple and observable; start with static JSON and iterate
-- Snapshot meaningful metrics, then add richer interpretations
-- Ensure graceful fallbacks when webhooks are offline
+---
+
+###  4. Core Ayurvedacharya Engine  
+This engine evaluates a user’s constitution and produces personalized Ayurvedic insights.
+
+**Capabilities**
+- Determines prakriti (body type) and vikriti (current imbalance)  
+- Interprets digestion quality, sleep cycles, stress patterns, and energy flow  
+- Generates lifestyle recommendations for current season (ritu)  
+- Provides daily ayurvedic adjustments based on user inputs and medical data  
+
+This is the “core intelligence system” behind personalized Ayurvedic guidance.
+
+---
+
+## 🔗 Why These Agents Matter
+
+Together, these four engines create an end-to-end wellness intelligence system:
+
+- Medical science → Ayurveda → Diet → Astro-circadian timing  
+- Personalized insights instead of generic lists  
+- Seamless understanding for Ayurvedacharyas during consultations  
+- A preventive health model designed for modern users  
+
+This multi-agent architecture turns Arogya-AI into a unique preventive-health platform that blends evidence, tradition, and daily usability.
+
+
+
+##  Tech Stack
+
+- **Frontend:** React.js , Nextjs, Shadcn 
+- **Backend:** n8n (automations & workflows)  
+- **AI / NLP:** OpenAI API  
+- **Storage:** Cloud storage / neon db (postgress SQL)
+
+---
+
+
+##  Arogya-AI: Why This App Matters
+
+Arogya-AI unifies Ayurveda, modern medical reports, circadian rhythm science, and practical astrology into one organized insight system.  
+It empowers users with clear understanding, daily routines, and personalized guidance while helping Ayurvedacharyas conduct faster, deeper, and more accurate consultations.
+
+## 📸 Screenshots
+
+### Home Screen ![Home](screenshot/1.png)
+### Report Upload ![Upload](screenshot/3.png) 
+### Insights Dashboard ![Insights](screenshot/4.png)
+### Insights Dashboard ![Insights](screenshot/5.png)
+### Insights Dashboard ![Insights](screenshot/6.png)
