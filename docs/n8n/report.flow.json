@@ -1,0 +1,48 @@
+{
+  "name": "Report Upload Webhook",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "webhook-test/report",
+        "responseMode": "onReceived",
+        "httpMethod": "POST"
+      },
+      "id": "Webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "const base = { snapshot: { location: 'Thane', nativePlace: 'Thane', season: 'Vasanta', airQuality: 'Moderate', workNature: 'kapha_increasing', mainMealTime: 'Madhyahna', agni: 'Sama Agni', ama: 'None', primaryDoshaImbalance: 'Kapha', humanCopy: 'Kapha elevating context with stable digestion.' }, doshaProfile: { primaryAggravatedDosha: 'Kapha' }, metabolicDigestive: { agniType: 'Sama (balanced)', amaLevel: 'None', digestiveStrengthScore: 78 }, foodCompatibility: { prefer_qualities: ['tikta','katu','kashaya','laghu','ruksha','sheetala_moderate','ushna'], avoid_qualities: ['cold','guru_heavy','heavy_meals','ati_madhura','ati_snigdha'], recommended_foods: [ { name: 'mudga_yusha', label: 'Mung dal soup (Mudga Yusha)' }, { name: 'yava_peya', label: 'Barley gruel (Yava Peya)' } ], avoid_or_caution_foods: [] }, extras: { balanceMeter: { vata: 28, pitta: 37, kapha: 35 }, climateEffectScore: 64, foodScore: 82, energyCurve: { morning: 7, afternoon: 8, evening: 6 } } };\nconst report = items[0].binary && items[0].binary.report_file ? 'uploaded' : 'missing';\nif (report === 'uploaded') { base.foodCompatibility.recommended_foods.push({ name: 'lauki_sabzi', label: 'Bottle gourd sabzi' }); }\nreturn [{ json: base }];"
+      },
+      "id": "Function",
+      "name": "Function",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "responseData": "={{$json}}",
+        "responseCode": 200,
+        "responseMode": "responseNode"
+      },
+      "id": "Respond",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [680, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [ [ { "node": "Function", "type": "main", "index": 0 } ] ]
+    },
+    "Function": {
+      "main": [ [ { "node": "Respond", "type": "main", "index": 0 } ] ]
+    }
+  }
+}
+

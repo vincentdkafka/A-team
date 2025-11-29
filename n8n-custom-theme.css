@@ -1,0 +1,698 @@
+/**
+ * Ayurvedic AI Platform - Custom n8n Theme
+ * 
+ * This CSS file applies the Ayurvedic AI Platform's design system to n8n
+ * Features: Warm earthy colors, glassmorphism, Ayurvedic wellness aesthetic
+ */
+
+/* ============================================
+   IMPORT FONTS
+   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ============================================
+   ROOT VARIABLES - Ayurvedic Color Palette
+   ============================================ */
+:root {
+  /* Primary Colors */
+  --ayur-background: #F5E8D0;
+  --ayur-foreground: #3B2E2E;
+  --ayur-card: #FFFBF5;
+  --ayur-card-foreground: #3B2E2E;
+  
+  /* Accent Colors */
+  --ayur-accent: #CFA94B;
+  --ayur-accent-foreground: #3B2E2E;
+  --ayur-saffron: #D9863C;
+  --ayur-saffron-foreground: #3B2E2E;
+  --ayur-secondary: #6B8E23;
+  --ayur-secondary-foreground: #F5E8D0;
+  
+  /* Neutral Colors */
+  --ayur-muted: rgba(59, 46, 46, 0.1);
+  --ayur-muted-foreground: #8B7765;
+  --ayur-border: rgba(59, 46, 46, 0.2);
+  
+  /* Functional Colors */
+  --ayur-destructive: #B85450;
+  --ayur-destructive-foreground: #F5E8D0;
+  --ayur-success: #6B8E23;
+  --ayur-warning: #D9863C;
+  --ayur-info: #CFA94B;
+  
+  /* UI Elements */
+  --ayur-input-bg: rgba(255, 255, 255, 0.8);
+  --ayur-input-border: rgba(59, 46, 46, 0.3);
+  --ayur-shadow: rgba(59, 46, 46, 0.1);
+  
+  /* Typography */
+  --ayur-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ayur-font-serif: 'Crimson Text', Georgia, serif;
+  
+  /* Spacing & Sizing */
+  --ayur-radius: 0.75rem;
+  --ayur-radius-sm: 0.5rem;
+  --ayur-radius-lg: 1rem;
+}
+
+/* ============================================
+   GLOBAL OVERRIDES
+   ============================================ */
+
+/* Main Application Background */
+body,
+#app,
+.n8n-root,
+[class*="mainPanel"] {
+  background-color: var(--ayur-background) !important;
+  color: var(--ayur-foreground) !important;
+  font-family: var(--ayur-font-sans) !important;
+}
+
+/* Glassmorphism Effect Helper Class */
+.glassmorphism {
+  background: rgba(255, 251, 245, 0.7) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ============================================
+   NAVIGATION & SIDEBAR
+   ============================================ */
+
+/* Left Sidebar */
+[class*="sidebar"],
+[class*="mainSidebar"],
+.el-aside {
+  background: linear-gradient(180deg, #2C1F1F 0%, #3B2E2E 100%) !important;
+  border-right: 1px solid var(--ayur-border) !important;
+}
+
+/* Sidebar Items */
+[class*="sidebar"] a,
+[class*="sidebar"] button,
+[class*="menuItem"] {
+  color: var(--ayur-accent) !important;
+  border-radius: var(--ayur-radius-sm) !important;
+  transition: all 0.2s ease !important;
+}
+
+[class*="sidebar"] a:hover,
+[class*="sidebar"] button:hover,
+[class*="menuItem"]:hover {
+  background-color: rgba(207, 169, 75, 0.2) !important;
+  color: var(--ayur-accent) !important;
+}
+
+/* Active Sidebar Item */
+[class*="sidebar"] a.router-link-active,
+[class*="sidebar"] .active,
+[class*="menuItem"].active {
+  background-color: rgba(207, 169, 75, 0.3) !important;
+  color: var(--ayur-accent) !important;
+  font-weight: 500 !important;
+}
+
+/* ============================================
+   HEADER & TOP BAR
+   ============================================ */
+
+/* Main Header */
+[class*="header"],
+[class*="topBar"],
+.el-header {
+  background: rgba(255, 251, 245, 0.9) !important;
+  backdrop-filter: blur(10px) !important;
+  border-bottom: 1px solid var(--ayur-border) !important;
+  box-shadow: 0 2px 8px var(--ayur-shadow) !important;
+}
+
+/* Header Text */
+[class*="header"] h1,
+[class*="header"] h2,
+[class*="header"] h3 {
+  color: var(--ayur-foreground) !important;
+  font-family: var(--ayur-font-sans) !important;
+}
+
+/* ============================================
+   CARDS & PANELS
+   ============================================ */
+
+/* Card Components */
+[class*="card"],
+[class*="panel"],
+.el-card {
+  background: var(--ayur-card) !important;
+  border: 1px solid var(--ayur-border) !important;
+  border-radius: var(--ayur-radius) !important;
+  box-shadow: 0 4px 12px var(--ayur-shadow) !important;
+  color: var(--ayur-card-foreground) !important;
+}
+
+/* Card with Glassmorphism */
+[class*="card"].glass,
+[class*="panel"].glass {
+  background: rgba(255, 251, 245, 0.7) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Card Headers */
+[class*="cardHeader"],
+.el-card__header {
+  background: rgba(207, 169, 75, 0.1) !important;
+  border-bottom: 1px solid var(--ayur-border) !important;
+  color: var(--ayur-accent) !important;
+  font-weight: 500 !important;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+/* Primary Button */
+button[class*="primary"],
+.el-button--primary,
+.n8n-button--primary {
+  background: linear-gradient(135deg, var(--ayur-accent) 0%, var(--ayur-saffron) 100%) !important;
+  color: var(--ayur-accent-foreground) !important;
+  border: none !important;
+  border-radius: var(--ayur-radius-sm) !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 8px rgba(207, 169, 75, 0.3) !important;
+}
+
+button[class*="primary"]:hover,
+.el-button--primary:hover,
+.n8n-button--primary:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(207, 169, 75, 0.4) !important;
+}
+
+/* Secondary Button */
+button[class*="secondary"],
+.el-button--secondary,
+.n8n-button--secondary {
+  background: var(--ayur-secondary) !important;
+  color: var(--ayur-secondary-foreground) !important;
+  border: none !important;
+  border-radius: var(--ayur-radius-sm) !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+button[class*="secondary"]:hover,
+.el-button--secondary:hover,
+.n8n-button--secondary:hover {
+  background: #5a7a1e !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Default/Outline Button */
+button[class*="default"],
+.el-button--default,
+.n8n-button {
+  background: var(--ayur-card) !important;
+  color: var(--ayur-foreground) !important;
+  border: 1px solid var(--ayur-border) !important;
+  border-radius: var(--ayur-radius-sm) !important;
+  transition: all 0.2s ease !important;
+}
+
+button[class*="default"]:hover,
+.el-button--default:hover,
+.n8n-button:hover {
+  background: rgba(207, 169, 75, 0.1) !important;
+  border-color: var(--ayur-accent) !important;
+}
+
+/* Danger/Destructive Button */
+button[class*="danger"],
+.el-button--danger,
+.n8n-button--danger {
+  background: var(--ayur-destructive) !important;
+  color: var(--ayur-destructive-foreground) !important;
+  border: none !important;
+  border-radius: var(--ayur-radius-sm) !important;
+}
+
+/* ============================================
+   INPUTS & FORMS
+   ============================================ */
+
+/* Input Fields */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea,
+.el-input__inner,
+.n8n-input {
+  background: var(--ayur-input-bg) !important;
+  border: 1px solid var(--ayur-input-border) !important;
+  border-radius: var(--ayur-radius-sm) !important;
+  color: var(--ayur-foreground) !important;
+  font-family: var(--ayur-font-sans) !important;
+  transition: all 0.2s ease !important;
+}
+
+input:focus,
+textarea:focus,
+.el-input__inner:focus,
+.n8n-input:focus {
+  border-color: var(--ayur-accent) !important;
+  box-shadow: 0 0 0 3px rgba(207, 169, 75, 0.2) !important;
+  outline: none !important;
+}
+
+/* Select Dropdowns */
+select,
+.el-select,
+.n8n-select {
+  background: var(--ayur-input-bg) !important;
+  border: 1px solid var(--ayur-input-border) !important;
+  border-radius: var(--ayur-radius-sm) !important;
+  color: var(--ayur-foreground) !important;
+}
+
+/* Labels */
+label,
+.el-form-item__label {
+  color: var(--ayur-foreground) !important;
+  font-weight: 500 !important;
+  font-family: var(--ayur-font-sans) !important;
+}
+
+/* ============================================
+   WORKFLOW CANVAS
+   ============================================ */
+
+/* Canvas Background */
+[class*="canvas"],
+[class*="workflow"],
+#workflow-canvas {
+  background-color: #FBF6EE !important;
+  background-image: 
+    linear-gradient(rgba(59, 46, 46, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 46, 46, 0.05) 1px, transparent 1px) !important;
+  background-size: 20px 20px !important;
+}
+
+/* Workflow Nodes */
+[class*="node"],
+.n8n-node {
+  background: var(--ayur-card) !important;
+  border: 2px solid var(--ayur-border) !important;
+  border-radius: var(--ayur-radius) !important;
+  box-shadow: 0 4px 12px var(--ayur-shadow) !important;
+  transition: all 0.2s ease !important;
+}
+
+[class*="node"]:hover,
+.n8n-node:hover {
+  border-color: var(--ayur-accent) !important;
+  box-shadow: 0 6px 16px rgba(207, 169, 75, 0.3) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Active/Selected Node */
+[class*="node"].active,
+[class*="node"].selected,
+.n8n-node.selected {
+  border-color: var(--ayur-accent) !important;
+  box-shadow: 0 0 0 3px rgba(207, 169, 75, 0.2) !important;
+}
+
+/* Node Connections */
+[class*="connection"],
+.n8n-connection path {
+  stroke: var(--ayur-accent) !important;
+  stroke-width: 2px !important;
+}
+
+/* ============================================
+   MODALS & DIALOGS
+   ============================================ */
+
+/* Modal Overlay */
+[class*="modal-overlay"],
+.el-overlay,
+.n8n-modal-overlay {
+  background: rgba(59, 46, 46, 0.5) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* Modal Content */
+[class*="modal"],
+.el-dialog,
+.n8n-modal {
+  background: var(--ayur-card) !important;
+  border: 1px solid var(--ayur-border) !important;
+  border-radius: var(--ayur-radius-lg) !important;
+  box-shadow: 0 20px 60px rgba(59, 46, 46, 0.3) !important;
+}
+
+/* Modal Header */
+[class*="modal-header"],
+.el-dialog__header,
+.n8n-modal-header {
+  background: rgba(207, 169, 75, 0.1) !important;
+  border-bottom: 1px solid var(--ayur-border) !important;
+  color: var(--ayur-accent) !important;
+  font-weight: 600 !important;
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+
+/* Table */
+table,
+.el-table {
+  background: var(--ayur-card) !important;
+  border: 1px solid var(--ayur-border) !important;
+  border-radius: var(--ayur-radius) !important;
+}
+
+/* Table Header */
+thead,
+.el-table__header {
+  background: rgba(207, 169, 75, 0.1) !important;
+  color: var(--ayur-foreground) !important;
+  font-weight: 600 !important;
+}
+
+/* Table Rows */
+tbody tr,
+.el-table__row {
+  border-bottom: 1px solid var(--ayur-border) !important;
+  transition: background-color 0.2s ease !important;
+}
+
+tbody tr:hover,
+.el-table__row:hover {
+  background: rgba(207, 169, 75, 0.05) !important;
+}
+
+/* Alternating Row Colors */
+tbody tr:nth-child(even) {
+  background: rgba(245, 232, 208, 0.3) !important;
+}
+
+/* ============================================
+   NOTIFICATIONS & ALERTS
+   ============================================ */
+
+/* Success Notification */
+[class*="notification"].success,
+.el-notification--success,
+.n8n-notification--success {
+  background: rgba(107, 142, 35, 0.1) !important;
+  border-left: 4px solid var(--ayur-success) !important;
+  color: var(--ayur-foreground) !important;
+}
+
+/* Error Notification */
+[class*="notification"].error,
+.el-notification--error,
+.n8n-notification--error {
+  background: rgba(184, 84, 80, 0.1) !important;
+  border-left: 4px solid var(--ayur-destructive) !important;
+  color: var(--ayur-foreground) !important;
+}
+
+/* Warning Notification */
+[class*="notification"].warning,
+.el-notification--warning,
+.n8n-notification--warning {
+  background: rgba(217, 134, 60, 0.1) !important;
+  border-left: 4px solid var(--ayur-warning) !important;
+  color: var(--ayur-foreground) !important;
+}
+
+/* Info Notification */
+[class*="notification"].info,
+.el-notification--info,
+.n8n-notification--info {
+  background: rgba(207, 169, 75, 0.1) !important;
+  border-left: 4px solid var(--ayur-info) !important;
+  color: var(--ayur-foreground) !important;
+}
+
+/* ============================================
+   BADGES & TAGS
+   ============================================ */
+
+/* Badge */
+[class*="badge"],
+.el-badge,
+.n8n-badge {
+  background: var(--ayur-accent) !important;
+  color: var(--ayur-accent-foreground) !important;
+  border-radius: 999px !important;
+  font-weight: 500 !important;
+  font-size: 0.75rem !important;
+}
+
+/* Tag */
+[class*="tag"],
+.el-tag,
+.n8n-tag {
+  background: rgba(207, 169, 75, 0.2) !important;
+  color: var(--ayur-foreground) !important;
+  border: 1px solid var(--ayur-accent) !important;
+  border-radius: var(--ayur-radius-sm) !important;
+  font-weight: 500 !important;
+}
+
+/* ============================================
+   SCROLLBARS
+   ============================================ */
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px !important;
+  height: 10px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(245, 232, 208, 0.3) !important;
+  border-radius: var(--ayur-radius-sm) !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ayur-muted-foreground) !important;
+  border-radius: var(--ayur-radius-sm) !important;
+  transition: background 0.2s ease !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ayur-accent) !important;
+}
+
+/* ============================================
+   TOOLTIPS
+   ============================================ */
+
+/* Tooltip */
+[class*="tooltip"],
+.el-tooltip__popper,
+.n8n-tooltip {
+  background: rgba(59, 46, 46, 0.95) !important;
+  color: var(--ayur-background) !important;
+  border-radius: var(--ayur-radius-sm) !important;
+  font-size: 0.875rem !important;
+  padding: 0.5rem 0.75rem !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* ============================================
+   PROGRESS BARS
+   ============================================ */
+
+/* Progress Bar */
+[class*="progress"],
+.el-progress,
+.n8n-progress {
+  background: rgba(59, 46, 46, 0.1) !important;
+  border-radius: 999px !important;
+  overflow: hidden !important;
+}
+
+[class*="progress-bar"],
+.el-progress-bar__inner,
+.n8n-progress-bar {
+  background: linear-gradient(90deg, var(--ayur-accent) 0%, var(--ayur-saffron) 100%) !important;
+  border-radius: 999px !important;
+  transition: width 0.3s ease !important;
+}
+
+/* ============================================
+   SWITCHES & TOGGLES
+   ============================================ */
+
+/* Switch */
+[class*="switch"],
+.el-switch,
+.n8n-switch {
+  background: var(--ayur-muted) !important;
+  border-radius: 999px !important;
+}
+
+[class*="switch"].active,
+.el-switch.is-checked,
+.n8n-switch.active {
+  background: var(--ayur-accent) !important;
+}
+
+/* ============================================
+   TABS
+   ============================================ */
+
+/* Tab Container */
+[class*="tabs"],
+.el-tabs,
+.n8n-tabs {
+  background: transparent !important;
+}
+
+/* Tab Item */
+[class*="tab"],
+.el-tabs__item,
+.n8n-tab {
+  color: var(--ayur-muted-foreground) !important;
+  border-bottom: 2px solid transparent !important;
+  transition: all 0.2s ease !important;
+  font-weight: 500 !important;
+}
+
+[class*="tab"]:hover,
+.el-tabs__item:hover,
+.n8n-tab:hover {
+  color: var(--ayur-accent) !important;
+}
+
+/* Active Tab */
+[class*="tab"].active,
+.el-tabs__item.is-active,
+.n8n-tab.active {
+  color: var(--ayur-accent) !important;
+  border-bottom-color: var(--ayur-accent) !important;
+}
+
+/* ============================================
+   LOADING STATES
+   ============================================ */
+
+/* Loading Spinner */
+[class*="loading"],
+[class*="spinner"],
+.el-loading-spinner,
+.n8n-spinner {
+  color: var(--ayur-accent) !important;
+}
+
+/* Loading Overlay */
+[class*="loading-overlay"],
+.el-loading-mask {
+  background: rgba(245, 232, 208, 0.8) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* ============================================
+   CUSTOM AYURVEDIC ELEMENTS
+   ============================================ */
+
+/* Sanskrit Text Style */
+.sanskrit,
+[class*="sanskrit"] {
+  font-family: var(--ayur-font-serif) !important;
+  font-style: italic !important;
+  color: var(--ayur-accent) !important;
+}
+
+/* Wellness Card */
+.wellness-card {
+  background: linear-gradient(135deg, rgba(255, 251, 245, 0.9) 0%, rgba(245, 232, 208, 0.9) 100%) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(207, 169, 75, 0.3) !important;
+  border-radius: var(--ayur-radius-lg) !important;
+  padding: 1.5rem !important;
+  box-shadow: 0 8px 24px rgba(59, 46, 46, 0.1) !important;
+}
+
+/* Accent Gradient */
+.accent-gradient {
+  background: linear-gradient(135deg, var(--ayur-accent) 0%, var(--ayur-saffron) 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes ayur-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.ayur-pulse {
+  animation: ayur-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+}
+
+@keyframes ayur-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ayur-fade-in {
+  animation: ayur-fade-in 0.3s ease-out !important;
+}
+
+/* ============================================
+   RESPONSIVE UTILITIES
+   ============================================ */
+
+@media (max-width: 768px) {
+  :root {
+    --ayur-radius: 0.5rem;
+    --ayur-radius-lg: 0.75rem;
+  }
+  
+  [class*="card"],
+  [class*="panel"] {
+    border-radius: var(--ayur-radius) !important;
+  }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  [class*="sidebar"],
+  [class*="header"] {
+    display: none !important;
+  }
+}

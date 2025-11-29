@@ -1,0 +1,48 @@
+{
+  "name": "Astro Onboarding Webhook",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "webhook-test/astro",
+        "responseMode": "onReceived",
+        "httpMethod": "POST"
+      },
+      "id": "Webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "const body = items[0].json || {};\nconst name = (body.email || '').split('@')[0] || 'Guest';\nreturn [{ json: { greeting: 'Namaste', personaTitle: 'Focused Explorer', characterSummary: 'Grounded yet curious', currentState: 'Kapha slightly elevated', doshaDistribution: { vata: 30, pitta: 35, kapha: 35 }, interpretation: 'Spring Kapha context with stable digestion; keep food light and warm.', natureInsights: ['Consistent routines bring stability','Warmth and lightness support energy','Humid climate increases Kapha — choose drying spices'] } }];"
+      },
+      "id": "Function",
+      "name": "Function",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "responseData": "={{$json}}",
+        "responseCode": 200,
+        "responseMode": "responseNode"
+      },
+      "id": "Respond",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [680, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [ [ { "node": "Function", "type": "main", "index": 0 } ] ]
+    },
+    "Function": {
+      "main": [ [ { "node": "Respond", "type": "main", "index": 0 } ] ]
+    }
+  }
+}
+

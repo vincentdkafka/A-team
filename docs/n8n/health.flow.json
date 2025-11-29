@@ -1,0 +1,48 @@
+{
+  "name": "Health Webhook",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "webhook-test/health",
+        "responseMode": "onReceived",
+        "httpMethod": "GET"
+      },
+      "id": "Webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "return [{ json: { snapshot: { location: 'Thane', nativePlace: 'Thane', season: 'Vasanta', airQuality: 'Moderate', workNature: 'kapha_increasing', mainMealTime: 'Madhyahna', agni: 'Sama Agni', ama: 'None', primaryDoshaImbalance: 'Kapha', humanCopy: 'You are in Vasanta (spring) in Thane. Kapha naturally increases. Agni is stable; no Ama detected.' }, doshaProfile: { primaryAggravatedDosha: 'Kapha', secondaryInfluences: ['Vata'], bodyMindImpact: ['Heaviness','Slowness'], symptoms: ['Lethargy'] }, metabolicDigestive: { agniType: 'Sama (balanced)', amaLevel: 'None', digestiveStrengthScore: 78, interpretation: 'Good digestion with occasional heaviness; favor light warm foods.' }, foodCompatibility: { prefer_qualities: ['tikta','katu','kashaya','laghu','ruksha','sheetala_moderate','ushna'], avoid_qualities: ['ati_katu','ati_lavana','ati_madhura','ati_snigdha','cold','guru_heavy','heavy_meals','madhura_excess','sugary_snacks'], recommended_foods: [ { name: 'mudga_yusha', label: 'Mung dal soup (Mudga Yusha)' }, { name: 'yava_peya', label: 'Barley gruel (Yava Peya)' }, { name: 'sattu_drink_warm', label: 'Warm Sattu Drink' }, { name: 'lauki_sabzi', label: 'Bottle gourd sabzi' }, { name: 'khichdi_with_ghee', label: 'Simple rice-mung Khichdi with ghee' } ], avoid_or_caution_foods: [] }, extras: { balanceMeter: { vata: 30, pitta: 35, kapha: 35 }, climateEffectScore: 62, foodScore: 80, energyCurve: { morning: 7, afternoon: 8, evening: 6 }, weeklyTips: ['Add coriander to meals','Evening wind-down routine','Hydrate consistently'] } } }];"
+      },
+      "id": "Function",
+      "name": "Function",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "responseData": "={{$json}}",
+        "responseCode": 200,
+        "responseMode": "responseNode"
+      },
+      "id": "Respond",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [680, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [ [ { "node": "Function", "type": "main", "index": 0 } ] ]
+    },
+    "Function": {
+      "main": [ [ { "node": "Respond", "type": "main", "index": 0 } ] ]
+    }
+  }
+}
+
