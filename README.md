@@ -141,6 +141,5 @@ It empowers users with clear understanding, daily routines, and personalized gui
 
 ### Home Screen ![Home](screenshot/1.png)
 ### Report Upload ![Upload](screenshot/3.png) 
-### Insights Dashboard ![Insights](screenshot/4.png)
-### Insights Dashboard ![Insights](screenshot/5.png)
-### Insights Dashboard ![Insights](screenshot/6.png)
+### Discover you Ayurvedic type ![Insights](screenshot/4.png)
+
