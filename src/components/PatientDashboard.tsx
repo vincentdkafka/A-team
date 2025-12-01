@@ -167,66 +167,7 @@ export function PatientDashboard({ onNavigate }: PatientDashboardProps) {
         </Button>
       </div>
 
-      {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-card/80 glassmorphism border-t border-border backdrop-blur-lg">
-        <div className="flex justify-around py-3">
-          <button
-            onClick={() => onNavigate('patient-dashboard')}
-            className="flex flex-col items-center space-y-1 text-accent"
-          >
-            <Home className="w-6 h-6" />
-            <span className="text-xs">Home</span>
-          </button>
-
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              console.log('Plan button clicked');
-              onNavigate('patient-plan');
-            }}
-            className="flex flex-col items-center space-y-1 text-muted-foreground hover:text-accent transition-colors"
-          >
-            <Calendar className="w-6 h-6" />
-            <span className="text-xs">Plan</span>
-          </button>
-
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              console.log('Progress button clicked');
-              onNavigate('patient-progress');
-            }}
-            className="flex flex-col items-center space-y-1 text-muted-foreground hover:text-accent transition-colors"
-          >
-            <BarChart3 className="w-6 h-6" />
-            <span className="text-xs">Progress</span>
-          </button>
-
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              console.log('Chat button clicked');
-              onNavigate('chat');
-            }}
-            className="flex flex-col items-center space-y-1 text-muted-foreground hover:text-accent transition-colors"
-          >
-            <MessageCircle className="w-6 h-6" />
-            <span className="text-xs">Chat</span>
-          </button>
-
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              console.log('Profile button clicked');
-              onNavigate('patient-profile');
-            }}
-            className="flex flex-col items-center space-y-1 text-muted-foreground hover:text-accent transition-colors"
-          >
-            <User className="w-6 h-6" />
-            <span className="text-xs">Profile</span>
-          </button>
-        </div>
-      </div>
+      
     </div>
   );
 }

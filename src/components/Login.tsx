@@ -62,12 +62,40 @@ export function Login({ onNavigate }: LoginProps) {
     };
 
     try {
-      const res = await fetch('http://localhost:5678/webhook-test/health', {
+      const healthReq = fetch('/api/health', {
         method: 'GET',
         headers: { 'Accept': 'application/json' },
       });
-      const data = await res.json().catch(() => defaultData);
-      localStorage.setItem('ayurveda-dashboard', JSON.stringify(data || defaultData));
+      const reportReq = fetch('/api/report', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user, context: defaultData }),
+      });
+
+      const astroReq = fetch('/api/astro', { method: 'GET', headers: { Accept: 'application/json' } });
+      const practitionerReq = fetch('/api/practitioner', { method: 'GET', headers: { Accept: 'application/json' } });
+
+      const [healthRes, reportRes, astroRes, practitionerRes] = await Promise.allSettled([healthReq, reportReq, astroReq, practitionerReq]);
+
+      const healthJson =
+        healthRes.status === 'fulfilled'
+          ? await healthRes.value.json().catch(() => ({}))
+          : {};
+      const reportJson =
+        reportRes.status === 'fulfilled'
+          ? await reportRes.value.json().catch(() => ({}))
+          : {};
+      const astroJson =
+        astroRes.status === 'fulfilled'
+          ? await astroRes.value.json().catch(() => ({}))
+          : {};
+      const practitionerJson =
+        practitionerRes.status === 'fulfilled'
+          ? await practitionerRes.value.json().catch(() => ({}))
+          : {};
+
+      const combined = { ...defaultData, ...healthJson, ...reportJson, astro: astroJson?.astro || astroJson || {}, practitioners: practitionerJson?.practitioners || practitionerJson || [] };
+      localStorage.setItem('ayurveda-dashboard', JSON.stringify(combined));
       toast.success('Login successful!');
       onNavigate('ayurveda-dashboard');
     } catch (err) {

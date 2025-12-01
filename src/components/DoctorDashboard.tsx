@@ -75,7 +75,7 @@ export function DoctorDashboard({ onNavigate }: DoctorDashboardProps) {
   return (
     <div className="min-h-screen bg-background">
       {/* Background */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="pointer-events-none absolute inset-0 opacity-5">
         <ImageWithFallback
           src="https://images.unsplash.com/photo-1705083649602-03c5fbae2e89?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxheXVydmVkYSUyMGhlcmJzJTIwbmF0dXJhbHxlbnwxfHx8fDE3NTg2ODM5NDJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
           alt="Ayurvedic herbs"

@@ -1,20 +1,17 @@
 import { useState } from 'react';
 import { WelcomePortal } from './components/WelcomePortal';
-import { PatientDashboard } from './components/PatientDashboard';
-import { PatientPlan } from './components/PatientPlan';
-import { PatientProgress } from './components/PatientProgress';
-import { PatientProfile } from './components/PatientProfile';
+// Patient Home and Patient Profile removed per requirements
 import { DoctorDashboard } from './components/DoctorDashboard';
 import { ChatInterface } from './components/ChatInterface';
 import { IntegratedJourney } from './components/IntegratedJourney';
-import { AyurvedaDashboard } from './components/AyurvedaDashboard';
+import { AyurvedaJourneyDashboard as AyurvedaDashboard } from './components/AyurvedaJourneyDashboard';
 import { AstroOnboarding } from './components/AstroOnboarding';
-import { AstroInsights } from './components/AstroInsights';
+// Astro Insights page removed per requirements
 
 import { Login } from './components/Login';
 import { Register } from './components/Register';
 
-type Screen = 'welcome' | 'patient-dashboard' | 'doctor-dashboard' | 'chat' | 'integrated-journey' | 'patient-plan' | 'patient-progress' | 'patient-profile' | 'login' | 'register' | 'ayurveda-dashboard' | 'astro-onboarding' | 'astro-insights';
+type Screen = 'welcome' | 'doctor-dashboard' | 'chat' | 'integrated-journey' | 'login' | 'register' | 'ayurveda-dashboard' | 'astro-onboarding';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('login');
@@ -22,7 +19,9 @@ export default function App() {
   const handleNavigate = (screen: string) => {
     console.log('Navigating to:', screen);
     console.log('Current screen:', currentScreen);
-    setCurrentScreen(screen as Screen);
+    const removed = ['patient-dashboard', 'patient-profile', 'astro-insights'];
+    const target = removed.includes(screen) ? 'ayurveda-dashboard' : screen;
+    setCurrentScreen(target as Screen);
   };
 
   const renderScreen = () => {
@@ -33,14 +32,7 @@ export default function App() {
         return <Register onNavigate={handleNavigate} />;
       case 'welcome':
         return <WelcomePortal onNavigate={handleNavigate} />;
-      case 'patient-dashboard':
-        return <PatientDashboard onNavigate={handleNavigate} />;
-      case 'patient-plan':
-        return <PatientPlan onNavigate={handleNavigate} />;
-      case 'patient-progress':
-        return <PatientProgress onNavigate={handleNavigate} />;
-      case 'patient-profile':
-        return <PatientProfile onNavigate={handleNavigate} />;
+      // patient-dashboard and patient-profile removed
       case 'doctor-dashboard':
         return <DoctorDashboard onNavigate={handleNavigate} />;
       case 'chat':
@@ -51,94 +43,50 @@ export default function App() {
         return <AyurvedaDashboard onNavigate={handleNavigate} />;
       case 'astro-onboarding':
         return <AstroOnboarding onNavigate={handleNavigate} />;
-      case 'astro-insights':
-        return <AstroInsights onNavigate={handleNavigate} />;
+      // astro-insights page removed
       default:
-        return <PatientDashboard onNavigate={handleNavigate} />;
+        return <AyurvedaDashboard onNavigate={handleNavigate} />;
     }
   };
 
   return (
     <div className="size-full relative">
-      {renderScreen()}
-
-      {/* Development Navigation Menu */}
-      <div className="fixed top-4 right-4 z-50 bg-card/90 backdrop-blur-sm border border-border rounded-lg p-3 shadow-lg">
-        <p className="text-xs text-muted-foreground mb-2">Dev Navigation</p>
-        <div className="flex flex-col space-y-1">
-          <button
-            onClick={() => handleNavigate('login')}
-            className={`text-xs px-2 py-1 rounded text-left hover:bg-accent/20 ${currentScreen === 'login' ? 'bg-accent text-accent-foreground' : 'text-foreground'}`}
-          >
-            🔐 Login
-          </button>
-          <button
-            onClick={() => handleNavigate('welcome')}
-            className={`text-xs px-2 py-1 rounded text-left hover:bg-accent/20 ${currentScreen === 'welcome' ? 'bg-accent text-accent-foreground' : 'text-foreground'}`}
-          >
-            🚪 Welcome Portal
-          </button>
-          <button
-            onClick={() => handleNavigate('ayurveda-dashboard')}
-            className={`text-xs px-2 py-1 rounded text-left hover:bg-accent/20 ${currentScreen === 'ayurveda-dashboard' ? 'bg-accent text-accent-foreground' : 'text-foreground'}`}
-          >
-            🌿 Ayurveda Dashboard
-          </button>
-          <button
-            onClick={() => handleNavigate('astro-onboarding')}
-            className={`text-xs px-2 py-1 rounded text-left hover:bg-accent/20 ${currentScreen === 'astro-onboarding' ? 'bg-accent text-accent-foreground' : 'text-foreground'}`}
-          >
-            ✨ Astro Onboarding
-          </button>
-          <button
-            onClick={() => handleNavigate('astro-insights')}
-            className={`text-xs px-2 py-1 rounded text-left hover:bg-accent/20 ${currentScreen === 'astro-insights' ? 'bg-accent text-accent-foreground' : 'text-foreground'}`}
-          >
-            ✨ Astro Insights
-          </button>
-          <button
-            onClick={() => handleNavigate('patient-dashboard')}
-            className={`text-xs px-2 py-1 rounded text-left hover:bg-accent/20 ${currentScreen === 'patient-dashboard' ? 'bg-accent text-accent-foreground' : 'text-foreground'}`}
-          >
-            🏠 Patient Home
-          </button>
-          <button
-            onClick={() => handleNavigate('patient-plan')}
-            className={`text-xs px-2 py-1 rounded text-left hover:bg-accent/20 ${currentScreen === 'patient-plan' ? 'bg-accent text-accent-foreground' : 'text-foreground'}`}
-          >
-            📅 Patient Plan
-          </button>
-          <button
-            onClick={() => handleNavigate('patient-progress')}
-            className={`text-xs px-2 py-1 rounded text-left hover:bg-accent/20 ${currentScreen === 'patient-progress' ? 'bg-accent text-accent-foreground' : 'text-foreground'}`}
-          >
-            📊 Patient Progress
-          </button>
-          <button
-            onClick={() => handleNavigate('patient-profile')}
-            className={`text-xs px-2 py-1 rounded text-left hover:bg-accent/20 ${currentScreen === 'patient-profile' ? 'bg-accent text-accent-foreground' : 'text-foreground'}`}
-          >
-            👤 Patient Profile
-          </button>
-          <button
-            onClick={() => handleNavigate('doctor-dashboard')}
-            className={`text-xs px-2 py-1 rounded text-left hover:bg-accent/20 ${currentScreen === 'doctor-dashboard' ? 'bg-accent text-accent-foreground' : 'text-foreground'}`}
-          >
-            🩺 Practitioner Panel
-          </button>
-          <button
-            onClick={() => handleNavigate('chat')}
-            className={`text-xs px-2 py-1 rounded text-left hover:bg-accent/20 ${currentScreen === 'chat' ? 'bg-accent text-accent-foreground' : 'text-foreground'}`}
-          >
-            💬 AI Chat
-          </button>
-          <button
-            onClick={() => handleNavigate('integrated-journey')}
-            className={`text-xs px-2 py-1 rounded text-left hover:bg-accent/20 ${currentScreen === 'integrated-journey' ? 'bg-accent text-accent-foreground' : 'text-foreground'}`}
-          >
-            🌐 Journey View
-          </button>
+      {typeof window !== 'undefined' && localStorage.getItem('user') && (
+        <div className="w-full bg-card/95 backdrop-blur-sm border-b border-border">
+          <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
+            <div className="text-primary font-medium text-sm md:text-base">Welcome Portal</div>
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                onClick={() => handleNavigate('ayurveda-dashboard')}
+                className={`text-sm md:text-base px-3 py-1 rounded hover:bg-accent/20 ${currentScreen === 'ayurveda-dashboard' ? 'bg-accent text-accent-foreground' : 'text-primary'}`}
+              >
+                Ayurveda Dashboard
+              </button>
+              
+              <button
+                onClick={() => handleNavigate('doctor-dashboard')}
+                className={`text-sm md:text-base px-3 py-1 rounded hover:bg-accent/20 ${currentScreen === 'doctor-dashboard' ? 'bg-accent text-accent-foreground' : 'text-primary'}`}
+              >
+                Practitioner Panel
+              </button>
+              <button
+                onClick={() => handleNavigate('chat')}
+                className={`text-sm md:text-base px-3 py-1 rounded hover:bg-accent/20 ${currentScreen === 'chat' ? 'bg-accent text-accent-foreground' : 'text-primary'}`}
+              >
+                AI Chat
+              </button>
+              <button
+                onClick={() => handleNavigate('integrated-journey')}
+                className={`text-sm md:text-base px-3 py-1 rounded hover:bg-accent/20 ${currentScreen === 'integrated-journey' ? 'bg-accent text-accent-foreground' : 'text-primary'}`}
+              >
+                Journey View
+              </button>
+            </div>
+          </div>
         </div>
+      )}
+      <div className="size-full">
+        {renderScreen()}
       </div>
     </div>
   );

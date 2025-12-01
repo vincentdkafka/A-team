@@ -47,33 +47,63 @@ export function ChatInterface({ onNavigate }: ChatInterfaceProps) {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isUploading, setIsUploading] = useState(false);
+  const [isSending, setIsSending] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleSendMessage = () => {
-    if (!inputValue.trim()) return;
+  async function sendToAyurvedaBot(message: string) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message }),
+        signal: controller.signal,
+      });
+      const text = await res.text();
+      return text;
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  const handleSendMessage = async () => {
+    if (!inputValue.trim() || isSending) return;
+    setIsSending(true);
+    const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const content = inputValue;
+    setInputValue('');
 
     const userMessage: Message = {
       id: Date.now().toString(),
       type: 'user',
-      content: inputValue,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      content,
+      timestamp: now
     };
-
     setMessages(prev => [...prev, userMessage]);
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      const reply = await sendToAyurvedaBot(content);
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
         type: 'ai',
-        content: getAIResponse(inputValue),
+        content: reply || getAIResponse(content),
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        category: getMessageCategory(inputValue)
+        category: getMessageCategory(content)
       };
       setMessages(prev => [...prev, aiResponse]);
-    }, 1000);
-
-    setInputValue('');
+    } catch {
+      const aiResponse: Message = {
+        id: (Date.now() + 2).toString(),
+        type: 'ai',
+        content: getAIResponse(content),
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        category: getMessageCategory(content)
+      };
+      setMessages(prev => [...prev, aiResponse]);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const getMessageCategory = (input: string): 'dosha' | 'herbs' | 'lifestyle' | 'general' => {
@@ -161,7 +191,7 @@ export function ChatInterface({ onNavigate }: ChatInterfaceProps) {
   return (
     <div className="min-h-screen bg-background">
       {/* Background */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="pointer-events-none absolute inset-0 opacity-5">
         <ImageWithFallback
           src="https://images.unsplash.com/photo-1653364744086-23f5e85de842?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHxsb3R1cyUyMGZsb3dlciUyMHNwaXJpdHVhbHxlbnwxfHx8fDE3NTg3MjIyNjd8MA&ixlib=rb-4.1.0&q=80&w=1080"
           alt="Lotus background"
@@ -169,7 +199,7 @@ export function ChatInterface({ onNavigate }: ChatInterfaceProps) {
         />
       </div>
 
-      <div className="relative z-10 flex flex-col h-screen pb-24">
+      <div className="relative z-10 flex flex-col min-h-screen">
         {/* Header */}
         <Card className="glassmorphism p-4 m-4 mb-0 bg-card text-card-foreground">
           <div className="flex items-center justify-between">
@@ -271,7 +301,7 @@ export function ChatInterface({ onNavigate }: ChatInterfaceProps) {
         </Card>
 
         {/* Input */}
-        <Card className="glassmorphism p-4 m-4 mt-0 bg-card text-card-foreground">
+        <Card className="glassmorphism p-4 m-4 mt-auto bg-card text-card-foreground">
           <div className="flex items-center space-x-2">
             <Input
               value={inputValue}
@@ -282,7 +312,7 @@ export function ChatInterface({ onNavigate }: ChatInterfaceProps) {
             />
             <Button
               onClick={handleSendMessage}
-              disabled={!inputValue.trim()}
+              disabled={!inputValue.trim() || isSending}
               className="rounded-xl w-12 h-12 bg-accent hover:bg-accent/90 text-accent-foreground p-0"
             >
               <Send className="w-5 h-5" />
@@ -304,65 +334,7 @@ export function ChatInterface({ onNavigate }: ChatInterfaceProps) {
         </Card>
       </div>
 
-      {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-card/80 glassmorphism border-t border-border backdrop-blur-lg">
-        <div className="flex justify-around py-3">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate('patient-dashboard');
-            }}
-            className="flex flex-col items-center space-y-1 text-muted-foreground hover:text-accent transition-colors"
-          >
-            <Home className="w-6 h-6" />
-            <span className="text-xs">Home</span>
-          </button>
-
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate('patient-plan');
-            }}
-            className="flex flex-col items-center space-y-1 text-muted-foreground hover:text-accent transition-colors"
-          >
-            <Calendar className="w-6 h-6" />
-            <span className="text-xs">Plan</span>
-          </button>
-
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate('patient-progress');
-            }}
-            className="flex flex-col items-center space-y-1 text-muted-foreground hover:text-accent transition-colors"
-          >
-            <BarChart3 className="w-6 h-6" />
-            <span className="text-xs">Progress</span>
-          </button>
-
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate('chat');
-            }}
-            className="flex flex-col items-center space-y-1 text-accent"
-          >
-            <MessageCircle className="w-6 h-6" />
-            <span className="text-xs">Chat</span>
-          </button>
-
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate('patient-profile');
-            }}
-            className="flex flex-col items-center space-y-1 text-muted-foreground hover:text-accent transition-colors"
-          >
-            <User className="w-6 h-6" />
-            <span className="text-xs">Profile</span>
-          </button>
-        </div>
-      </div>
+      
     </div>
   );
 }
