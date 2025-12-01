@@ -110,16 +110,16 @@ export function Login({ onNavigate }: LoginProps) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Welcome back</CardTitle>
-          <CardDescription className="text-center">
+        <CardHeader className="space-y-2">
+          <CardTitle className="text-2xl md:text-3xl font-bold text-center">Welcome back</CardTitle>
+          <CardDescription className="text-center text-foreground">
             Enter your credentials to access your account
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="space-y-3">
+              <Label htmlFor="email" className="text-base md:text-lg">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -127,10 +127,11 @@ export function Login({ onNavigate }: LoginProps) {
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="text-base md:text-lg"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+            <div className="space-y-3">
+              <Label htmlFor="password" className="text-base md:text-lg">Password</Label>
               <div className="relative">
                 <Input
                   id="password"
@@ -138,6 +139,7 @@ export function Login({ onNavigate }: LoginProps) {
                   required
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  className="text-base md:text-lg"
                 />
                 <Button
                   type="button"
@@ -154,14 +156,14 @@ export function Login({ onNavigate }: LoginProps) {
                 </Button>
               </div>
             </div>
-            <Button className="w-full" type="submit" disabled={isLoading}>
+            <Button className="w-full text-base md:text-lg" type="submit" disabled={isLoading}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Sign In
             </Button>
           </form>
         </CardContent>
-        <CardFooter className="flex flex-col space-y-2">
-          <div className="text-sm text-muted-foreground text-center">
+        <CardFooter className="flex flex-col space-y-3">
+          <div className="text-base text-foreground text-center">
             Don't have an account?{' '}
             <button
               onClick={() => onNavigate('register')}

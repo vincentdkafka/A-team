@@ -65,26 +65,27 @@ export function Register({ onNavigate }: RegisterProps) {
     return (
         <div className="min-h-screen flex items-center justify-center bg-background p-4">
             <Card className="w-full max-w-md">
-                <CardHeader className="space-y-1">
-                    <CardTitle className="text-2xl font-bold text-center">Create an account</CardTitle>
-                    <CardDescription className="text-center">
+                <CardHeader className="space-y-2">
+                    <CardTitle className="text-2xl md:text-3xl font-bold text-center">Create an account</CardTitle>
+                    <CardDescription className="text-center text-foreground">
                         Enter your information to get started
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="name">Full Name</Label>
+                    <form onSubmit={handleSubmit} className="space-y-5">
+                        <div className="space-y-3">
+                            <Label htmlFor="name" className="text-base md:text-lg">Full Name</Label>
                             <Input
                                 id="name"
                                 placeholder="John Doe"
                                 required
                                 value={formData.name}
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                className="text-base md:text-lg"
                             />
                         </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="email">Email</Label>
+                        <div className="space-y-3">
+                            <Label htmlFor="email" className="text-base md:text-lg">Email</Label>
                             <Input
                                 id="email"
                                 type="email"
@@ -92,21 +93,23 @@ export function Register({ onNavigate }: RegisterProps) {
                                 required
                                 value={formData.email}
                                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                className="text-base md:text-lg"
                             />
                         </div>
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                                <Label htmlFor="dob">Date of Birth</Label>
+                            <div className="space-y-3">
+                                <Label htmlFor="dob" className="text-base md:text-lg">Date of Birth</Label>
                                 <Input
                                     id="dob"
                                     type="date"
                                     required
                                     value={formData.dob}
                                     onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
+                                    className="text-base md:text-lg"
                                 />
                             </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="age">Age</Label>
+                            <div className="space-y-3">
+                                <Label htmlFor="age" className="text-base md:text-lg">Age</Label>
                                 <Input
                                     id="age"
                                     type="number"
@@ -114,11 +117,12 @@ export function Register({ onNavigate }: RegisterProps) {
                                     required
                                     value={formData.age}
                                     onChange={(e) => setFormData({ ...formData, age: e.target.value })}
+                                    className="text-base md:text-lg"
                                 />
                             </div>
                         </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="gender">Gender</Label>
+                        <div className="space-y-3">
+                            <Label htmlFor="gender" className="text-base md:text-lg">Gender</Label>
                             <Select
                                 value={formData.gender}
                                 onValueChange={(value: string) => setFormData({ ...formData, gender: value })}
@@ -133,18 +137,19 @@ export function Register({ onNavigate }: RegisterProps) {
                                 </SelectContent>
                             </Select>
                         </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="nativePlace">Native Place</Label>
+                        <div className="space-y-3">
+                            <Label htmlFor="nativePlace" className="text-base md:text-lg">Native Place</Label>
                             <Input
                                 id="nativePlace"
                                 placeholder="City, Country"
                                 required
                                 value={formData.nativePlace}
                                 onChange={(e) => setFormData({ ...formData, nativePlace: e.target.value })}
+                                className="text-base md:text-lg"
                             />
                         </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="password">Password</Label>
+                        <div className="space-y-3">
+                            <Label htmlFor="password" className="text-base md:text-lg">Password</Label>
                             <div className="relative">
                                 <Input
                                     id="password"
@@ -152,6 +157,7 @@ export function Register({ onNavigate }: RegisterProps) {
                                     required
                                     value={formData.password}
                                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                    className="text-base md:text-lg"
                                 />
                                 <Button
                                     type="button"
@@ -168,24 +174,25 @@ export function Register({ onNavigate }: RegisterProps) {
                                 </Button>
                             </div>
                         </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="confirmPassword">Confirm Password</Label>
+                        <div className="space-y-3">
+                            <Label htmlFor="confirmPassword" className="text-base md:text-lg">Confirm Password</Label>
                             <Input
                                 id="confirmPassword"
                                 type="password"
                                 required
                                 value={formData.confirmPassword}
                                 onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                                className="text-base md:text-lg"
                             />
                         </div>
-                        <Button className="w-full" type="submit" disabled={isLoading}>
+                        <Button className="w-full text-base md:text-lg" type="submit" disabled={isLoading}>
                             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                             Create Account
                         </Button>
                     </form>
                 </CardContent>
-                <CardFooter className="flex flex-col space-y-2">
-                    <div className="text-sm text-muted-foreground text-center">
+                <CardFooter className="flex flex-col space-y-3">
+                    <div className="text-base text-foreground text-center">
                         Already have an account?{' '}
                         <button
                             onClick={() => onNavigate('login')}
